@@ -7,7 +7,7 @@ class Example {
 	char char1 = 'c';
 	
 	public void method1() {
-		int1 += int2;
+		int1 *= int2;
 	}
 	
 	int method2() {
