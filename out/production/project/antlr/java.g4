@@ -3,62 +3,110 @@ grammar java;
 @header {
     package antlr;
 }
-
-program: imports classes;
-
-imports: (KW_IMPORT full_package SEP_SEM)*;
-full_package: ID('.'ID)*;
-
-classes: (classDef)+;
-
-classDef:  class_header SEP_CUBL class_body SEP_CUBR;
-class_header: (KW_PUBLIC)? (KW_ABSTRACT)? KW_CLASS ID (KW_EXTENDS ID)? (KW_IMPLEMENTS ID)*;
-class_body: (varDefinition | method | classDef)*;
-
-varDefinition: (access_mod)? type ID (SEP_ASS expression)? SEP_SEM;
-
-expression
-	: literal
-	| ID
-	| functionCall
-	| objectFuncCall
-	| objectCreationCall
-	| SEP_PARL expression SEP_PARR
-	| expression (OP_ARITHM | OP_REL | OP_LOG) expression
+prog: imps clss
 	;
 
-method: method_header block;
-method_header: (access_mod)? (KW_ABSTRACT)? (type | KW_VOID) ID SEP_PARL multiple_arg SEP_PARR;
-single_arg: type ID;
-multiple_arg: (single_arg (',' single_arg)*)?;
+imps: (KW_IMPORT fpac SEP_SEM)*
+	;
+fpac: ID('.'ID)*
+	;
 
-block: SEP_CUBL line* SEP_CUBR;
+clss: (classDef)+
+	;
 
-line: (statement SEP_SEM) | ifStatement | whileStatement | doWhileStatement | COMMENT | returnStatement;
+classDef:  cls_head SEP_CUBL cls_body SEP_CUBR
+	;
 
-returnStatement: KW_RETURN expression SEP_SEM;
-statement: (varDefinition | assignment | functionCall | objectFuncCall);
+cls_head: (KW_PUBLIC)? (KW_ABSTRACT)? KW_CLASS ID (KW_EXTENDS ID)? (KW_IMPLEMENTS ID)*
+	;
 
-assignment: ID (SEP_ASS | OP_ASSIGN) expression;
+cls_body: (var_def | mth)*
+	;
 
-functionCall: ID SEP_PARL multiple_arg SEP_PARR nthFuncCall;
-objectCreationCall: KW_NEW ID SEP_PARL multiple_arg SEP_PARR;
-objectFuncCall: ID '.' ID SEP_PARL multiple_arg SEP_PARR nthFuncCall;
-nthFuncCall: ('.' ID SEP_PARL multiple_arg SEP_PARR)*;
+var_def: (access_mod)? type ID (SEP_ASS expr)? SEP_SEM
+	;
 
-ifStatement: KW_IF SEP_PARL expression SEP_PARR block elseIfStatement* elseStatement?;
-elseIfStatement: KW_ELSE KW_IF SEP_PARL expression SEP_PARR block;
-elseStatement: KW_ELSE block;
+expr
+	: lit
+	| ID
+    | funcCall
+    | objFuncCall
+    | objCreationCall
+    | SEP_PARL expr SEP_PARR
+	| expr (OP_ARITHM_MUL | OP_REL | OP_LOG) expr
+    | expr OP_ARITHM_ADD expr
+    ;
 
-whileStatement: KW_WHILE SEP_PARL expression SEP_PARR block;
+mth: mth_head blck
+	;
 
-doWhileStatement: KW_DO block KW_WHILE SEP_PARL expression SEP_PARR;
+mth_head: (access_mod)? (KW_ABSTRACT)? (type | KW_VOID) ID SEP_PARL marg SEP_PARR
+	;
 
-type: KW_INT | KW_FLOAT | KW_CHAR | KW_BOOLEAN | ID;
+sarg: type ID
+	;
 
-literal: LIT_INT | LIT_FLOAT | LIT_CHAR | LIT_STR | LIT_BOOL | LIT_NULL;
+marg: (sarg (',' sarg)*)?
+	;
 
-access_mod: KW_PRIVATE | KW_PROTECTED | KW_PUBLIC;
+blck: SEP_CUBL ln* SEP_CUBR
+	;
+
+ln: (stat SEP_SEM) # Statement_line
+	| ifStat	# If_statement_line
+	| whileStat	# While_statement_line
+	| doWhileStatement	# Do_while_statement_line
+	| COMMENT	# Comment_line
+	| ret_stat # Return_statement_line
+	;
+
+ret_stat: KW_RETURN expr SEP_SEM
+	;
+
+stat: var_def
+	| asgn
+	| funcCall
+	| objFuncCall
+	;
+
+asgn: ID (SEP_ASS | OP_ASSIGN) expr
+	;
+
+funcCall: ID SEP_PARL marg SEP_PARR nthFuncCall
+	;
+
+objCreationCall: KW_NEW ID SEP_PARL marg SEP_PARR
+	;
+
+objFuncCall: ID '.' ID SEP_PARL marg SEP_PARR nthFuncCall
+	;
+
+nthFuncCall: ('.' ID SEP_PARL marg SEP_PARR)*
+	;
+
+ifStat: KW_IF SEP_PARL expr SEP_PARR blck elseIfStat* elseStat?
+	;
+	
+elseIfStat: KW_ELSE KW_IF SEP_PARL expr SEP_PARR blck
+	;
+
+elseStat: KW_ELSE blck
+	;
+
+whileStat: KW_WHILE SEP_PARL expr SEP_PARR blck
+	;
+
+doWhileStatement: KW_DO blck KW_WHILE SEP_PARL expr SEP_PARR
+	;
+
+type: KW_INT | KW_FLOAT | KW_CHAR | KW_BOOLEAN | ID
+	;
+
+lit: LIT_INT | LIT_FLOAT | LIT_CHAR | LIT_STR | LIT_BOOL | LIT_NULL
+	;
+
+access_mod: KW_PRIVATE | KW_PROTECTED | KW_PUBLIC
+	;
 
 
 // tokens
@@ -67,43 +115,23 @@ access_mod: KW_PRIVATE | KW_PROTECTED | KW_PUBLIC;
 
 KW_ABSTRACT		: 'abstract';
 KW_BOOLEAN		: 'boolean';
-KW_BYTE			: 'byte';
-KW_BREAK		: 'break';
 KW_CLASS		: 'class';
 KW_CASE			: 'case';
-KW_CATCH		: 'catch';
 KW_CHAR			: 'char';
-KW_CONST		: 'const';
-KW_CONTINUE		: 'continue';
-KW_DEFAULT		: 'default';
 KW_DO			: 'do';
 KW_ELSE			: 'else';
-KW_ENUM			: 'enum';
 KW_EXTENDS		: 'extends';
-KW_FINAL		: 'final';
-KW_FINALLY		: 'finally';
 KW_FLOAT		: 'float';
-KW_FOR			: 'for';
 KW_IF			: 'if';
 KW_IMPLEMENTS	: 'implements';
 KW_IMPORT		: 'import';
-KW_INSTANCEOF	: 'instanceof';
 KW_INT			: 'int';
-KW_INTERFACE	: 'interface';
-KW_LONG			: 'long';
 KW_NEW			: 'new';
-KW_PACKAGE		: 'package';
 KW_PRIVATE		: 'private';
 KW_PROTECTED	: 'protected';
 KW_PUBLIC		: 'public';
 KW_RETURN		: 'return';
 KW_SHORT		: 'short';
-KW_STATIC		: 'static';
-KW_SWITCH		: 'switch';
-KW_THIS			: 'this';
-KW_THROW		: 'throw';
-KW_THROWS		: 'throws';
-KW_TRY			: 'try';
 KW_VOID			: 'void';
 KW_WHILE		: 'while';
 
@@ -120,12 +148,11 @@ SEP_PARL		: '(';
 SEP_PARR		: ')';
 SEP_CUBL		: '{';
 SEP_CUBR		: '}';
-SEP_COM			: ',';
 SEP_ASS			: '=';
 SEP_SEM			: ';';
-SEP_PER			: '.';
 
-OP_ARITHM		: '+' | '-' | '/' | '*' | '%';
+OP_ARITHM_MUL	: '/' | '*' | '%';
+OP_ARITHM_ADD	: '+' | '-';
 OP_UNARY		: '++' | '--' | '!';
 OP_ASSIGN		: '+=' | '-=' | '*=' | '/=' | '%=' | '^=';
 OP_REL			: '==' | '!=' | '<' | '>' | '<=' | '>=';
@@ -133,8 +160,9 @@ OP_LOG			: '&&' | ' | ';
 OP_BITWISE		: '&' | '|' | '^' | '~';
 OP_SHIFT		: '<<' | '>>' | '>>>';
 
-COMMENT			: '//' .* ('\n' | EOF)
-				| '/*' .* '*/';
+COMMENT			: '//' ~('\n')* '\n'
+				| '/*' ~('*')* '*/';
+				
 WS				: [ \t\r\n]+ -> skip;
 
 ID				: [a-zA-Z_$][a-zA-Z0-9_$]*;

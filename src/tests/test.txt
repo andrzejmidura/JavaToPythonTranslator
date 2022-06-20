@@ -6,7 +6,7 @@ class Example {
 	bool bool1;
 	char char1 = 'c';
 	
-	public void method1() {
+	public void method1(int x, char y) {
 		int1 *= int2;
 	}
 	

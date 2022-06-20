@@ -13,152 +13,89 @@ import org.antlr.v4.runtime.tree.ParseTreeVisitor;
  */
 public interface javaVisitor<T> extends ParseTreeVisitor<T> {
 	/**
-	 * Visit a parse tree produced by the {@code Program}
-	 * labeled alternative in {@link javaParser#prog}.
+	 * Visit a parse tree produced by {@link javaParser#prog}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitProgram(javaParser.ProgramContext ctx);
+	T visitProg(javaParser.ProgContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Imports}
-	 * labeled alternative in {@link javaParser#imps}.
+	 * Visit a parse tree produced by {@link javaParser#imps}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitImports(javaParser.ImportsContext ctx);
+	T visitImps(javaParser.ImpsContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Full_package}
-	 * labeled alternative in {@link javaParser#fpac}.
+	 * Visit a parse tree produced by {@link javaParser#fpac}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFull_package(javaParser.Full_packageContext ctx);
+	T visitFpac(javaParser.FpacContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Classes}
-	 * labeled alternative in {@link javaParser#clss}.
+	 * Visit a parse tree produced by {@link javaParser#clss}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitClasses(javaParser.ClassesContext ctx);
+	T visitClss(javaParser.ClssContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Class_definition}
-	 * labeled alternative in {@link javaParser#classDef}.
+	 * Visit a parse tree produced by {@link javaParser#classDef}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitClass_definition(javaParser.Class_definitionContext ctx);
+	T visitClassDef(javaParser.ClassDefContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Class_header}
-	 * labeled alternative in {@link javaParser#cls_head}.
+	 * Visit a parse tree produced by {@link javaParser#cls_head}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitClass_header(javaParser.Class_headerContext ctx);
+	T visitCls_head(javaParser.Cls_headContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Class_body}
-	 * labeled alternative in {@link javaParser#cls_body}.
+	 * Visit a parse tree produced by {@link javaParser#cls_body}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitClass_body(javaParser.Class_bodyContext ctx);
+	T visitCls_body(javaParser.Cls_bodyContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Variable_definition}
-	 * labeled alternative in {@link javaParser#var_def}.
+	 * Visit a parse tree produced by {@link javaParser#var_def}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitVariable_definition(javaParser.Variable_definitionContext ctx);
+	T visitVar_def(javaParser.Var_defContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Function_call_expression}
-	 * labeled alternative in {@link javaParser#expr}.
+	 * Visit a parse tree produced by {@link javaParser#expr}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFunction_call_expression(javaParser.Function_call_expressionContext ctx);
+	T visitExpr(javaParser.ExprContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Literal_expression}
-	 * labeled alternative in {@link javaParser#expr}.
+	 * Visit a parse tree produced by {@link javaParser#mth}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitLiteral_expression(javaParser.Literal_expressionContext ctx);
+	T visitMth(javaParser.MthContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Multiplicative_expression}
-	 * labeled alternative in {@link javaParser#expr}.
+	 * Visit a parse tree produced by {@link javaParser#mth_head}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitMultiplicative_expression(javaParser.Multiplicative_expressionContext ctx);
+	T visitMth_head(javaParser.Mth_headContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Parentheses_expression}
-	 * labeled alternative in {@link javaParser#expr}.
+	 * Visit a parse tree produced by {@link javaParser#sarg}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitParentheses_expression(javaParser.Parentheses_expressionContext ctx);
+	T visitSarg(javaParser.SargContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Object_creation_call_expression}
-	 * labeled alternative in {@link javaParser#expr}.
+	 * Visit a parse tree produced by {@link javaParser#marg}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitObject_creation_call_expression(javaParser.Object_creation_call_expressionContext ctx);
+	T visitMarg(javaParser.MargContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Identifier_expression}
-	 * labeled alternative in {@link javaParser#expr}.
+	 * Visit a parse tree produced by {@link javaParser#blck}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIdentifier_expression(javaParser.Identifier_expressionContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code Object_function_call_expression}
-	 * labeled alternative in {@link javaParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitObject_function_call_expression(javaParser.Object_function_call_expressionContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code Additive_expression}
-	 * labeled alternative in {@link javaParser#expr}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitAdditive_expression(javaParser.Additive_expressionContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code Method}
-	 * labeled alternative in {@link javaParser#mth}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitMethod(javaParser.MethodContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code Method_header}
-	 * labeled alternative in {@link javaParser#mth_head}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitMethod_header(javaParser.Method_headerContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code Single_arg}
-	 * labeled alternative in {@link javaParser#sarg}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSingle_arg(javaParser.Single_argContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code Multiple_arg}
-	 * labeled alternative in {@link javaParser#marg}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitMultiple_arg(javaParser.Multiple_argContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code Block}
-	 * labeled alternative in {@link javaParser#blck}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBlock(javaParser.BlockContext ctx);
+	T visitBlck(javaParser.BlckContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code Statement_line}
 	 * labeled alternative in {@link javaParser#ln}.
@@ -202,89 +139,77 @@ public interface javaVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitReturn_statement_line(javaParser.Return_statement_lineContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Return_statement}
-	 * labeled alternative in {@link javaParser#ret_stat}.
+	 * Visit a parse tree produced by {@link javaParser#ret_stat}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitReturn_statement(javaParser.Return_statementContext ctx);
+	T visitRet_stat(javaParser.Ret_statContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Statement}
-	 * labeled alternative in {@link javaParser#stat}.
+	 * Visit a parse tree produced by {@link javaParser#stat}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitStatement(javaParser.StatementContext ctx);
+	T visitStat(javaParser.StatContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Assigment}
-	 * labeled alternative in {@link javaParser#asgn}.
+	 * Visit a parse tree produced by {@link javaParser#asgn}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAssigment(javaParser.AssigmentContext ctx);
+	T visitAsgn(javaParser.AsgnContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Function_call}
-	 * labeled alternative in {@link javaParser#funcCall}.
+	 * Visit a parse tree produced by {@link javaParser#funcCall}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFunction_call(javaParser.Function_callContext ctx);
+	T visitFuncCall(javaParser.FuncCallContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Object_creation_call}
-	 * labeled alternative in {@link javaParser#objCreationCall}.
+	 * Visit a parse tree produced by {@link javaParser#objCreationCall}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitObject_creation_call(javaParser.Object_creation_callContext ctx);
+	T visitObjCreationCall(javaParser.ObjCreationCallContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Object_function_call}
-	 * labeled alternative in {@link javaParser#objFuncCall}.
+	 * Visit a parse tree produced by {@link javaParser#objFuncCall}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitObject_function_call(javaParser.Object_function_callContext ctx);
+	T visitObjFuncCall(javaParser.ObjFuncCallContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Nth_func_call}
-	 * labeled alternative in {@link javaParser#nthFuncCall}.
+	 * Visit a parse tree produced by {@link javaParser#nthFuncCall}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitNth_func_call(javaParser.Nth_func_callContext ctx);
+	T visitNthFuncCall(javaParser.NthFuncCallContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code If_statement}
-	 * labeled alternative in {@link javaParser#ifStat}.
+	 * Visit a parse tree produced by {@link javaParser#ifStat}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIf_statement(javaParser.If_statementContext ctx);
+	T visitIfStat(javaParser.IfStatContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Else_if_statement}
-	 * labeled alternative in {@link javaParser#elseIfStat}.
+	 * Visit a parse tree produced by {@link javaParser#elseIfStat}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitElse_if_statement(javaParser.Else_if_statementContext ctx);
+	T visitElseIfStat(javaParser.ElseIfStatContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Else_statement}
-	 * labeled alternative in {@link javaParser#elseStat}.
+	 * Visit a parse tree produced by {@link javaParser#elseStat}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitElse_statement(javaParser.Else_statementContext ctx);
+	T visitElseStat(javaParser.ElseStatContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code While_statement}
-	 * labeled alternative in {@link javaParser#whileStat}.
+	 * Visit a parse tree produced by {@link javaParser#whileStat}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitWhile_statement(javaParser.While_statementContext ctx);
+	T visitWhileStat(javaParser.WhileStatContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code Do_while_statement}
-	 * labeled alternative in {@link javaParser#doWhileStatement}.
+	 * Visit a parse tree produced by {@link javaParser#doWhileStatement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitDo_while_statement(javaParser.Do_while_statementContext ctx);
+	T visitDoWhileStatement(javaParser.DoWhileStatementContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link javaParser#type}.
 	 * @param ctx the parse tree

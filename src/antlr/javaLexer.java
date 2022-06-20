@@ -1,4 +1,4 @@
-// Generated from java.g4 by ANTLR 4.10.1
+// Generated from .\java.g4 by ANTLR 4.10.1
 
     package antlr;
 

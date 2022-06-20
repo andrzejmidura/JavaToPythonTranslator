@@ -18,253 +18,169 @@ public class javaBaseListener implements javaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterProgram(javaParser.ProgramContext ctx) { }
+	@Override public void enterProg(javaParser.ProgContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitProgram(javaParser.ProgramContext ctx) { }
+	@Override public void exitProg(javaParser.ProgContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterImports(javaParser.ImportsContext ctx) { }
+	@Override public void enterImps(javaParser.ImpsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitImports(javaParser.ImportsContext ctx) { }
+	@Override public void exitImps(javaParser.ImpsContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFull_package(javaParser.Full_packageContext ctx) { }
+	@Override public void enterFpac(javaParser.FpacContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFull_package(javaParser.Full_packageContext ctx) { }
+	@Override public void exitFpac(javaParser.FpacContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterClasses(javaParser.ClassesContext ctx) { }
+	@Override public void enterClss(javaParser.ClssContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitClasses(javaParser.ClassesContext ctx) { }
+	@Override public void exitClss(javaParser.ClssContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterClass_definition(javaParser.Class_definitionContext ctx) { }
+	@Override public void enterClassDef(javaParser.ClassDefContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitClass_definition(javaParser.Class_definitionContext ctx) { }
+	@Override public void exitClassDef(javaParser.ClassDefContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterClass_header(javaParser.Class_headerContext ctx) { }
+	@Override public void enterCls_head(javaParser.Cls_headContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitClass_header(javaParser.Class_headerContext ctx) { }
+	@Override public void exitCls_head(javaParser.Cls_headContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterClass_body(javaParser.Class_bodyContext ctx) { }
+	@Override public void enterCls_body(javaParser.Cls_bodyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitClass_body(javaParser.Class_bodyContext ctx) { }
+	@Override public void exitCls_body(javaParser.Cls_bodyContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterVariable_definition(javaParser.Variable_definitionContext ctx) { }
+	@Override public void enterVar_def(javaParser.Var_defContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitVariable_definition(javaParser.Variable_definitionContext ctx) { }
+	@Override public void exitVar_def(javaParser.Var_defContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFunction_call_expression(javaParser.Function_call_expressionContext ctx) { }
+	@Override public void enterExpr(javaParser.ExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFunction_call_expression(javaParser.Function_call_expressionContext ctx) { }
+	@Override public void exitExpr(javaParser.ExprContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterLiteral_expression(javaParser.Literal_expressionContext ctx) { }
+	@Override public void enterMth(javaParser.MthContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitLiteral_expression(javaParser.Literal_expressionContext ctx) { }
+	@Override public void exitMth(javaParser.MthContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterMultiplicative_expression(javaParser.Multiplicative_expressionContext ctx) { }
+	@Override public void enterMth_head(javaParser.Mth_headContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitMultiplicative_expression(javaParser.Multiplicative_expressionContext ctx) { }
+	@Override public void exitMth_head(javaParser.Mth_headContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterParentheses_expression(javaParser.Parentheses_expressionContext ctx) { }
+	@Override public void enterSarg(javaParser.SargContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitParentheses_expression(javaParser.Parentheses_expressionContext ctx) { }
+	@Override public void exitSarg(javaParser.SargContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterObject_creation_call_expression(javaParser.Object_creation_call_expressionContext ctx) { }
+	@Override public void enterMarg(javaParser.MargContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitObject_creation_call_expression(javaParser.Object_creation_call_expressionContext ctx) { }
+	@Override public void exitMarg(javaParser.MargContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIdentifier_expression(javaParser.Identifier_expressionContext ctx) { }
+	@Override public void enterBlck(javaParser.BlckContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIdentifier_expression(javaParser.Identifier_expressionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterObject_function_call_expression(javaParser.Object_function_call_expressionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitObject_function_call_expression(javaParser.Object_function_call_expressionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterAdditive_expression(javaParser.Additive_expressionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitAdditive_expression(javaParser.Additive_expressionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterMethod(javaParser.MethodContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitMethod(javaParser.MethodContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterMethod_header(javaParser.Method_headerContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitMethod_header(javaParser.Method_headerContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterSingle_arg(javaParser.Single_argContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitSingle_arg(javaParser.Single_argContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterMultiple_arg(javaParser.Multiple_argContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitMultiple_arg(javaParser.Multiple_argContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterBlock(javaParser.BlockContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitBlock(javaParser.BlockContext ctx) { }
+	@Override public void exitBlck(javaParser.BlckContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -342,145 +258,145 @@ public class javaBaseListener implements javaListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterReturn_statement(javaParser.Return_statementContext ctx) { }
+	@Override public void enterRet_stat(javaParser.Ret_statContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitReturn_statement(javaParser.Return_statementContext ctx) { }
+	@Override public void exitRet_stat(javaParser.Ret_statContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStatement(javaParser.StatementContext ctx) { }
+	@Override public void enterStat(javaParser.StatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStatement(javaParser.StatementContext ctx) { }
+	@Override public void exitStat(javaParser.StatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAssigment(javaParser.AssigmentContext ctx) { }
+	@Override public void enterAsgn(javaParser.AsgnContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAssigment(javaParser.AssigmentContext ctx) { }
+	@Override public void exitAsgn(javaParser.AsgnContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFunction_call(javaParser.Function_callContext ctx) { }
+	@Override public void enterFuncCall(javaParser.FuncCallContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFunction_call(javaParser.Function_callContext ctx) { }
+	@Override public void exitFuncCall(javaParser.FuncCallContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterObject_creation_call(javaParser.Object_creation_callContext ctx) { }
+	@Override public void enterObjCreationCall(javaParser.ObjCreationCallContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitObject_creation_call(javaParser.Object_creation_callContext ctx) { }
+	@Override public void exitObjCreationCall(javaParser.ObjCreationCallContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterObject_function_call(javaParser.Object_function_callContext ctx) { }
+	@Override public void enterObjFuncCall(javaParser.ObjFuncCallContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitObject_function_call(javaParser.Object_function_callContext ctx) { }
+	@Override public void exitObjFuncCall(javaParser.ObjFuncCallContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterNth_func_call(javaParser.Nth_func_callContext ctx) { }
+	@Override public void enterNthFuncCall(javaParser.NthFuncCallContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitNth_func_call(javaParser.Nth_func_callContext ctx) { }
+	@Override public void exitNthFuncCall(javaParser.NthFuncCallContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIf_statement(javaParser.If_statementContext ctx) { }
+	@Override public void enterIfStat(javaParser.IfStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIf_statement(javaParser.If_statementContext ctx) { }
+	@Override public void exitIfStat(javaParser.IfStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterElse_if_statement(javaParser.Else_if_statementContext ctx) { }
+	@Override public void enterElseIfStat(javaParser.ElseIfStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitElse_if_statement(javaParser.Else_if_statementContext ctx) { }
+	@Override public void exitElseIfStat(javaParser.ElseIfStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterElse_statement(javaParser.Else_statementContext ctx) { }
+	@Override public void enterElseStat(javaParser.ElseStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitElse_statement(javaParser.Else_statementContext ctx) { }
+	@Override public void exitElseStat(javaParser.ElseStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterWhile_statement(javaParser.While_statementContext ctx) { }
+	@Override public void enterWhileStat(javaParser.WhileStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitWhile_statement(javaParser.While_statementContext ctx) { }
+	@Override public void exitWhileStat(javaParser.WhileStatContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDo_while_statement(javaParser.Do_while_statementContext ctx) { }
+	@Override public void enterDoWhileStatement(javaParser.DoWhileStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDo_while_statement(javaParser.Do_while_statementContext ctx) { }
+	@Override public void exitDoWhileStatement(javaParser.DoWhileStatementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

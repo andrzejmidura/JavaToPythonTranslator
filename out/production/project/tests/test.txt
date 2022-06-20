@@ -6,11 +6,11 @@ class Example {
 	bool bool1;
 	char char1 = 'c';
 	
-	public void method1() {
-		int1 += int2;
+	public void method1(int x, char y) {
+		int1 *= int2;
 	}
 	
 	int method2() {
-		return 10;
+		return int1+int2*3;
 	}
 }
