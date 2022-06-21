@@ -11,6 +11,7 @@ public class OurVisitor extends javaBaseVisitor<String> {
     HashMap<String, LinkedList<String>> types = new HashMap<>(5);
     Set<String> keywords = new HashSet<>();
     int currIndent = 0;
+    int currLine = 1;
 
     public OurVisitor() {
         types.put("int", new LinkedList<>());
@@ -51,6 +52,9 @@ public class OurVisitor extends javaBaseVisitor<String> {
         StringBuilder sb = new StringBuilder("");
         if (ctx.imps()!=null) sb.append(this.visitImps(ctx.imps()));
         if (ctx.clss()!=null) sb.append(this.visitClss(ctx.clss()));
+
+
+
         sb.append("\n\nErrors:\n");
         errors.forEach(sb::append);
         return sb.toString();
@@ -65,6 +69,7 @@ public class OurVisitor extends javaBaseVisitor<String> {
             sb.append(this.visitFpac(ctx.fpac().get(i)));
         }
         sb.append("\n");
+        currLine++;
         return sb.toString();
     }
 
@@ -78,6 +83,7 @@ public class OurVisitor extends javaBaseVisitor<String> {
         StringBuilder sb = new StringBuilder("");
         for (int i=0; i<ctx.classDef().size(); i++) {
             sb.append(this.visitClassDef(ctx.classDef(i)));
+
         }
         return sb.toString();
     }
@@ -109,6 +115,7 @@ public class OurVisitor extends javaBaseVisitor<String> {
         sb.append(ctx.ID(0));
         classNames.add(ctx.ID(0).toString());
         sb.append(":\n");
+        currLine++;
 
         return sb.toString();
     }
@@ -123,6 +130,7 @@ public class OurVisitor extends javaBaseVisitor<String> {
                 for (int j=0; j<currIndent; j++) sb.append("\t");
                 sb.append(this.visitVar_def(ctx.var_def(vd)));
                 sb.append("\n");
+                currLine++;
                 vd++;
             }
             else {
@@ -140,6 +148,14 @@ public class OurVisitor extends javaBaseVisitor<String> {
         StringBuilder sb = new StringBuilder("");
         if (ctx.SEP_ASS()!=null) {
             if (isKeyword(ctx.ID().toString())) errors.add("Variable name error: can't be a keyword!");
+            if (visitAccess_mod(ctx.access_mod()).equals("private")) {
+                sb.append("__");
+            }
+
+            else if (visitAccess_mod(ctx.access_mod()).equals("protected")) {
+                sb.append("_");
+            }
+
             sb.append(ctx.ID());
             sb.append(" ");
             sb.append(ctx.SEP_ASS());
@@ -171,7 +187,20 @@ public class OurVisitor extends javaBaseVisitor<String> {
     public String visitMth_head(javaParser.Mth_headContext ctx) {
         StringBuilder sb = new StringBuilder("");
         sb.append("def ");
-        sb.append(ctx.ID()).append(" ").append(ctx.SEP_PARL()).append("self");
+        if (visitAccess_mod(ctx.access_mod()).equals("private")) {
+            sb.append("__");
+            sb.append(ctx.ID()).append("__").append(" ").append(ctx.SEP_PARL()).append("self");
+        }
+
+        else if (visitAccess_mod(ctx.access_mod()).equals("protected")) {
+            sb.append("_");
+            sb.append(ctx.ID()).append("_").append(" ").append(ctx.SEP_PARL()).append("self");
+        }
+
+        else {
+            sb.append(ctx.ID()).append(" ").append(ctx.SEP_PARL()).append("self");
+        }
+
         if (ctx.marg()!=null) sb.append(this.visitMarg(ctx.marg()));
         sb.append(ctx.SEP_PARR()).append(":\n");
         return sb.toString();
@@ -195,7 +224,7 @@ public class OurVisitor extends javaBaseVisitor<String> {
     public String visitBlck(javaParser.BlckContext ctx) {
         StringBuilder sb = new StringBuilder("");
         boolean appended = false;
-        if (ctx.children.size()<3) errors.add("Indent expected; line: " + (ctx.start.getLine()));
+        if (ctx.children.size()<3) errors.add("Indent expected; line: " + currLine + "\n");
         for (int i = 1; i < ctx.children.size(); i++) {
             if (ctx.children.get(i) instanceof javaParser.Statement_lineContext)                {sb.append("\t".repeat(currIndent)); sb.append(this.visitStatement_line(((javaParser.Statement_lineContext) ctx.children.get(i)))); appended=true;}
             else if (ctx.children.get(i) instanceof javaParser.If_statement_lineContext)        {sb.append("\t".repeat(currIndent)); sb.append(this.visitIf_statement_line(((javaParser.If_statement_lineContext) ctx.children.get(i)))); appended=true;}
@@ -203,7 +232,10 @@ public class OurVisitor extends javaBaseVisitor<String> {
             else if (ctx.children.get(i) instanceof javaParser.Do_while_statement_lineContext)  {sb.append("\t".repeat(currIndent)); sb.append(this.visitDo_while_statement_line((javaParser.Do_while_statement_lineContext) ctx.children.get(i))); appended=true;}
             else if (ctx.children.get(i) instanceof javaParser.Comment_lineContext)             {sb.append("\t".repeat(currIndent)); sb.append(this.visitComment_line((javaParser.Comment_lineContext) ctx.children.get(i))); appended=true;}
             else if (ctx.children.get(i) instanceof javaParser.Return_statement_lineContext)    {sb.append("\t".repeat(currIndent)); sb.append(this.visitReturn_statement_line((javaParser.Return_statement_lineContext) ctx.children.get(i))); appended=true;}
-            if (appended) sb.append("\n");
+            if (appended) {
+                sb.append("\n");
+                currLine++;
+            }
             appended = false;
         }
         return sb.toString();
@@ -295,6 +327,7 @@ public class OurVisitor extends javaBaseVisitor<String> {
         sb.append(ctx.KW_IF()).append(" ");
         sb.append(this.visitExpr(ctx.expr())).append(":\n");
         currIndent += 1;
+        currLine++;
         sb.append(this.visitBlck(ctx.blck()));
         currIndent -= 1;
         for (int i = 0; i < ctx.elseIfStat().size(); i++) {
@@ -310,6 +343,7 @@ public class OurVisitor extends javaBaseVisitor<String> {
         sb.append("\t".repeat(currIndent));
         sb.append(ctx.KW_ELSE()).append(" ").append(ctx.KW_IF()).append(" ");
         sb.append(this.visitExpr(ctx.expr())).append(":\n");
+        currLine++;
         currIndent += 1;
         sb.append(this.visitBlck(ctx.blck()));
         currIndent -= 1;
@@ -321,6 +355,7 @@ public class OurVisitor extends javaBaseVisitor<String> {
         StringBuilder sb = new StringBuilder("");
         sb.append("\t".repeat(currIndent));
         sb.append(ctx.KW_ELSE()).append(":\n");
+        currLine++;
         currIndent += 1;
         sb.append(this.visitBlck(ctx.blck()));
         currIndent -= 1;
@@ -332,6 +367,7 @@ public class OurVisitor extends javaBaseVisitor<String> {
         StringBuilder sb = new StringBuilder();
         sb.append(ctx.KW_WHILE()).append(" ");
         sb.append(this.visitExpr(ctx.expr())).append(":\n");
+        currLine++;
         currIndent += 1;
         sb.append(this.visitBlck(ctx.blck()));
         currIndent -= 1;
@@ -355,6 +391,8 @@ public class OurVisitor extends javaBaseVisitor<String> {
 
     @Override
     public String visitAccess_mod(javaParser.Access_modContext ctx) {
-        return super.visitAccess_mod(ctx);
+
+        return ctx == null ? "private" : ctx.getText();
+
     }
 }

@@ -1,26 +1,30 @@
 import example.org;
 
 class Example {
-	int int1 = 1;
-	int int2 = 2;
-	bool bool1;
+	public int int1 = 1;
+	protected int int2 = 2;
+	bool bool1 = true;
 	char char1 = 'c';
-	
+
 	public void method1(int x, char y) {
 		int1 *= int2;
 		if (int1>int2) {
 			int1 = int2;
 		}
 		else if (int1<int2) {
-			
+
 		}
 		else {
 			int1 = 0;
 			int2 = 0;
 		}
+
+		if (int1>int2) {
+
+        		}
 		// to jest komentarz
 	}
-	
+
 	int method2() {
 		while (int1<int2) {
 			int1 += 1;

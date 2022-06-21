@@ -12,7 +12,7 @@ public class Main {
         CharStream test_valid = CharStreams.fromFileName(".\\src\\tests\\test_valid.txt");
         CharStream test_empty_block_error = CharStreams.fromFileName(".\\src\\tests\\test_empty_block_error.txt");
 
-        javaLexer lexer = new javaLexer(test_valid);
+        javaLexer lexer = new javaLexer(test_empty_block_error);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         javaParser parser = new javaParser(tokens);
 

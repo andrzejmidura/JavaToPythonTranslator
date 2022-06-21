@@ -224,8 +224,9 @@ public interface javaVisitor<T> extends ParseTreeVisitor<T> {
 	T visitLit(javaParser.LitContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link javaParser#access_mod}.
+	 *
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAccess_mod(javaParser.Access_modContext ctx);
+	String visitAccess_mod(javaParser.Access_modContext ctx);
 }

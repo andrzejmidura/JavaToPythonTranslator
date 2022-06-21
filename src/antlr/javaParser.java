@@ -2293,7 +2293,7 @@ public class javaParser extends Parser {
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof javaVisitor ) return ((javaVisitor<? extends T>)visitor).visitAccess_mod(this);
+			if ( visitor instanceof javaVisitor ) return (T) ((javaVisitor<? extends T>)visitor).visitAccess_mod(this);
 			else return visitor.visitChildren(this);
 		}
 	}
