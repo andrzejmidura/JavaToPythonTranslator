@@ -3,19 +3,56 @@ package expression;
 import antlr.javaBaseVisitor;
 import antlr.javaParser;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class OurVisitor extends javaBaseVisitor<String> {
     List<String> classNames = new ArrayList<>();
-    List<String> varNames = new ArrayList<>();
+    List<String> errors = new ArrayList<>();
+    HashMap<String, LinkedList<String>> types = new HashMap<>(5);
+    Set<String> keywords = new HashSet<>();
     int currIndent = 0;
+
+    public OurVisitor() {
+        types.put("int", new LinkedList<>());
+        types.put("float", new LinkedList<>());
+        types.put("char", new LinkedList<>());
+        types.put("bool", new LinkedList<>());
+
+        keywords.add("abstract");
+        keywords.add("boolean");
+        keywords.add("class");
+        keywords.add("case");
+        keywords.add("char");
+        keywords.add("do");
+        keywords.add("else");
+        keywords.add("extends");
+        keywords.add("float");
+        keywords.add("if");
+        keywords.add("implements");
+        keywords.add("import");
+        keywords.add("int");
+        keywords.add("new");
+        keywords.add("private");
+        keywords.add("protected");
+        keywords.add("public");
+        keywords.add("return");
+        keywords.add("short");
+        keywords.add("void");
+        keywords.add("while");
+    }
+
+    private boolean isKeyword(String id) {
+        if (keywords.contains(id)) return true;
+        else return false;
+    }
 
     @Override
     public String visitProg(javaParser.ProgContext ctx) {
         StringBuilder sb = new StringBuilder("");
         if (ctx.imps()!=null) sb.append(this.visitImps(ctx.imps()));
         if (ctx.clss()!=null) sb.append(this.visitClss(ctx.clss()));
+        sb.append("\n\nErrors:\n");
+        errors.forEach(sb::append);
         return sb.toString();
     }
 
@@ -61,7 +98,7 @@ public class OurVisitor extends javaBaseVisitor<String> {
     public String visitCls_head(javaParser.Cls_headContext ctx) {
         StringBuilder sb = new StringBuilder("");
 
-        sb.append(ctx.KW_CLASS());
+        sb.append(ctx.KW_CLASS()).append(" ");
         if (classNames.contains(ctx.ID(0).toString())) {
             try {
                 throw new Exception("Class '" + ctx.ID(0).toString() + "' already defined!");
@@ -91,7 +128,6 @@ public class OurVisitor extends javaBaseVisitor<String> {
             else {
                 for (int j=0; j<currIndent; j++) sb.append("\t");
                 sb.append(this.visitMth(ctx.mth(mt)));
-                sb.append("\n");
                 mt++;
             }
         }
@@ -103,6 +139,7 @@ public class OurVisitor extends javaBaseVisitor<String> {
     public String visitVar_def(javaParser.Var_defContext ctx) {
         StringBuilder sb = new StringBuilder("");
         if (ctx.SEP_ASS()!=null) {
+            if (isKeyword(ctx.ID().toString())) errors.add("Variable name error: can't be a keyword!");
             sb.append(ctx.ID());
             sb.append(" ");
             sb.append(ctx.SEP_ASS());
@@ -115,7 +152,6 @@ public class OurVisitor extends javaBaseVisitor<String> {
 
     @Override
     public String visitExpr(javaParser.ExprContext ctx) {
-        // TODO: sprawdzic czy ID zdefiniowane wczesniej
         return ctx.getText();
     }
 
@@ -158,15 +194,17 @@ public class OurVisitor extends javaBaseVisitor<String> {
     @Override
     public String visitBlck(javaParser.BlckContext ctx) {
         StringBuilder sb = new StringBuilder("");
+        boolean appended = false;
+        if (ctx.children.size()<3) errors.add("Indent expected; line: " + (ctx.start.getLine()));
         for (int i = 1; i < ctx.children.size(); i++) {
-            sb.append("\t".repeat(currIndent));
-            if (ctx.children.get(i) instanceof javaParser.Statement_lineContext)                sb.append(this.visitStatement_line(((javaParser.Statement_lineContext) ctx.children.get(i))));
-            else if (ctx.children.get(i) instanceof javaParser.If_statement_lineContext)        sb.append(this.visitIf_statement_line(((javaParser.If_statement_lineContext) ctx.children.get(i))));
-            else if (ctx.children.get(i) instanceof javaParser.While_statement_lineContext)     sb.append(this.visitWhile_statement_line((javaParser.While_statement_lineContext) ctx.children.get(i)));
-            else if (ctx.children.get(i) instanceof javaParser.Do_while_statement_lineContext)  sb.append(this.visitDo_while_statement_line((javaParser.Do_while_statement_lineContext) ctx.children.get(i)));
-            else if (ctx.children.get(i) instanceof javaParser.Comment_lineContext)             sb.append(this.visitComment_line((javaParser.Comment_lineContext) ctx.children.get(i)));
-            else if (ctx.children.get(i) instanceof javaParser.Return_statement_lineContext)    sb.append(this.visitReturn_statement_line((javaParser.Return_statement_lineContext) ctx.children.get(i)));
-            sb.append("\n");
+            if (ctx.children.get(i) instanceof javaParser.Statement_lineContext)                {sb.append("\t".repeat(currIndent)); sb.append(this.visitStatement_line(((javaParser.Statement_lineContext) ctx.children.get(i)))); appended=true;}
+            else if (ctx.children.get(i) instanceof javaParser.If_statement_lineContext)        {sb.append("\t".repeat(currIndent)); sb.append(this.visitIf_statement_line(((javaParser.If_statement_lineContext) ctx.children.get(i)))); appended=true;}
+            else if (ctx.children.get(i) instanceof javaParser.While_statement_lineContext)     {sb.append("\t".repeat(currIndent)); sb.append(this.visitWhile_statement_line((javaParser.While_statement_lineContext) ctx.children.get(i))); appended=true;}
+            else if (ctx.children.get(i) instanceof javaParser.Do_while_statement_lineContext)  {sb.append("\t".repeat(currIndent)); sb.append(this.visitDo_while_statement_line((javaParser.Do_while_statement_lineContext) ctx.children.get(i))); appended=true;}
+            else if (ctx.children.get(i) instanceof javaParser.Comment_lineContext)             {sb.append("\t".repeat(currIndent)); sb.append(this.visitComment_line((javaParser.Comment_lineContext) ctx.children.get(i))); appended=true;}
+            else if (ctx.children.get(i) instanceof javaParser.Return_statement_lineContext)    {sb.append("\t".repeat(currIndent)); sb.append(this.visitReturn_statement_line((javaParser.Return_statement_lineContext) ctx.children.get(i))); appended=true;}
+            if (appended) sb.append("\n");
+            appended = false;
         }
         return sb.toString();
     }
@@ -180,12 +218,12 @@ public class OurVisitor extends javaBaseVisitor<String> {
 
     @Override
     public String visitIf_statement_line(javaParser.If_statement_lineContext ctx) {
-        return super.visitIf_statement_line(ctx);
+        return this.visitIfStat(ctx.ifStat());
     }
 
     @Override
     public String visitWhile_statement_line(javaParser.While_statement_lineContext ctx) {
-        return super.visitWhile_statement_line(ctx);
+        return this.visitWhileStat(ctx.whileStat());
     }
 
     @Override
@@ -195,17 +233,23 @@ public class OurVisitor extends javaBaseVisitor<String> {
 
     @Override
     public String visitComment_line(javaParser.Comment_lineContext ctx) {
-        return super.visitComment_line(ctx);
+        StringBuilder sb = new StringBuilder();
+        sb.append("# ");
+        sb.append(ctx.getText().substring(2).trim());
+        return sb.toString();
     }
 
     @Override
     public String visitReturn_statement_line(javaParser.Return_statement_lineContext ctx) {
-        return super.visitReturn_statement_line(ctx);
+        return this.visitRet_stat(ctx.ret_stat());
     }
 
     @Override
     public String visitRet_stat(javaParser.Ret_statContext ctx) {
-        return super.visitRet_stat(ctx);
+        StringBuilder sb = new StringBuilder();
+        sb.append(ctx.KW_RETURN()).append(" ");
+        sb.append(this.visitExpr(ctx.expr()));
+        return sb.toString();
     }
 
     @Override
@@ -216,7 +260,6 @@ public class OurVisitor extends javaBaseVisitor<String> {
             else if (ctx.children.get(i) instanceof javaParser.AsgnContext)         sb.append(this.visitAsgn(((javaParser.AsgnContext) ctx.children.get(i))));
             else if (ctx.children.get(i) instanceof javaParser.FuncCallContext)     sb.append(this.visitFuncCall((javaParser.FuncCallContext) ctx.children.get(i)));
             else if (ctx.children.get(i) instanceof javaParser.ObjFuncCallContext)  sb.append(this.visitObjFuncCall((javaParser.ObjFuncCallContext) ctx.children.get(i)));
-            sb.append("\n");
         }
         return sb.toString();
     }
@@ -248,22 +291,51 @@ public class OurVisitor extends javaBaseVisitor<String> {
 
     @Override
     public String visitIfStat(javaParser.IfStatContext ctx) {
-        return super.visitIfStat(ctx);
+        StringBuilder sb = new StringBuilder("");
+        sb.append(ctx.KW_IF()).append(" ");
+        sb.append(this.visitExpr(ctx.expr())).append(":\n");
+        currIndent += 1;
+        sb.append(this.visitBlck(ctx.blck()));
+        currIndent -= 1;
+        for (int i = 0; i < ctx.elseIfStat().size(); i++) {
+            sb.append(this.visitElseIfStat(ctx.elseIfStat(i)));
+        }
+        if (ctx.elseStat()!=null) sb.append(this.visitElseStat(ctx.elseStat()));
+        return sb.toString();
     }
 
     @Override
     public String visitElseIfStat(javaParser.ElseIfStatContext ctx) {
-        return super.visitElseIfStat(ctx);
+        StringBuilder sb = new StringBuilder();
+        sb.append("\t".repeat(currIndent));
+        sb.append(ctx.KW_ELSE()).append(" ").append(ctx.KW_IF()).append(" ");
+        sb.append(this.visitExpr(ctx.expr())).append(":\n");
+        currIndent += 1;
+        sb.append(this.visitBlck(ctx.blck()));
+        currIndent -= 1;
+        return sb.toString();
     }
 
     @Override
     public String visitElseStat(javaParser.ElseStatContext ctx) {
-        return super.visitElseStat(ctx);
+        StringBuilder sb = new StringBuilder("");
+        sb.append("\t".repeat(currIndent));
+        sb.append(ctx.KW_ELSE()).append(":\n");
+        currIndent += 1;
+        sb.append(this.visitBlck(ctx.blck()));
+        currIndent -= 1;
+        return sb.toString();
     }
 
     @Override
     public String visitWhileStat(javaParser.WhileStatContext ctx) {
-        return super.visitWhileStat(ctx);
+        StringBuilder sb = new StringBuilder();
+        sb.append(ctx.KW_WHILE()).append(" ");
+        sb.append(this.visitExpr(ctx.expr())).append(":\n");
+        currIndent += 1;
+        sb.append(this.visitBlck(ctx.blck()));
+        currIndent -= 1;
+        return sb.toString();
     }
 
     @Override

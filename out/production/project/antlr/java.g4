@@ -99,7 +99,7 @@ whileStat: KW_WHILE SEP_PARL expr SEP_PARR blck
 doWhileStatement: KW_DO blck KW_WHILE SEP_PARL expr SEP_PARR
 	;
 
-type: KW_INT | KW_FLOAT | KW_CHAR | KW_BOOLEAN | ID
+type: KW_INT | KW_FLOAT | KW_CHAR | KW_BOOLEAN
 	;
 
 lit: LIT_INT | LIT_FLOAT | LIT_CHAR | LIT_STR | LIT_BOOL | LIT_NULL

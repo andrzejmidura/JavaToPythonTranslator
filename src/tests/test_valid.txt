@@ -1,0 +1,31 @@
+import example.org;
+
+class Example {
+	int zmienna = 1;
+	int int2 = 2;
+	char char2;
+	char char1 = 'c';
+	
+	public void method1(int x, char y) {
+		int1 *= int2;
+		if (int1>int2) {
+			int1 = int2;
+		}
+		else if (int1<int2) {
+			int2 = int1;
+		}
+		else {
+			int1 = 0;
+			int2 = 0;
+		}
+		// to jest komentarz
+	}
+	
+	int method2() {
+		while (int1<int2) {
+			int1 += 1;
+			int2 -= 1;
+		}
+		return int1+int2*3;
+	}
+}

@@ -9,8 +9,10 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        CharStream in = CharStreams.fromFileName(".\\src\\tests\\test.txt");
-        javaLexer lexer = new javaLexer(in);
+        CharStream test_valid = CharStreams.fromFileName(".\\src\\tests\\test_valid.txt");
+        CharStream test_empty_block_error = CharStreams.fromFileName(".\\src\\tests\\test_empty_block_error.txt");
+
+        javaLexer lexer = new javaLexer(test_valid);
         CommonTokenStream tokens = new CommonTokenStream(lexer);
         javaParser parser = new javaParser(tokens);
 
